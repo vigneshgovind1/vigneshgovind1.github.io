@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', function () {
     var canvas = document.getElementById('renderCanvas');
     var engine = new BABYLON.Engine(canvas, true);
-    var scene = new BABYLON.Scene(engine);
+    var scene = a new Babylon.Scene(engine);
     var camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 5, -10), scene);
     camera.setTarget(BABYLON.Vector3.Zero());
     var light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
@@ -10,6 +10,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Variable to track the color state
     var isRed = false;
+
+    // Variable to track the button press state
+    var triggerPressed = false;
 
     // Function to handle gamepad input (physical joystick)
     function handleGamepadInput(gamepad) {
@@ -20,9 +23,10 @@ window.addEventListener('DOMContentLoaded', function () {
         var movementSpeed = 0.05; 
 
         // Listen for gamepad index trigger click
-        if (gamepad.buttons[0].pressed) {
+        if (gamepad.buttons[0].pressed && !triggerPressed) {
             // Toggle the box color between red and white
             isRed = !isRed;
+            triggerPressed = true;
             if (isRed) {
                 box.material = new BABYLON.StandardMaterial("redMaterial", scene);
                 box.material.diffuseColor = new BABYLON.Color3(1, 0, 0); // Red color
@@ -30,6 +34,9 @@ window.addEventListener('DOMContentLoaded', function () {
                 box.material = new BABYLON.StandardMaterial("whiteMaterial", scene);
                 box.material.diffuseColor = new BABYLON.Color3(1, 1, 1); // White color
             }
+        } else if (!gamepad.buttons[0].pressed) {
+            // Reset the trigger press state when the button is released
+            triggerPressed = false;
         }
 
         // Check if the left stick is pushed to the left
