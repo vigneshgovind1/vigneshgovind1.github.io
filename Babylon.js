@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', function () {
         var leftStickX = axes[0];
 
         // Define a movement speed
-        var movementSpeed = 0.1; // Adjust the speed as needed
+        var movementSpeed = 0.05; // Adjust the speed as needed
 
         // Check if the left stick is pushed to the left
         if (leftStickX < -0.2) {
