@@ -32,30 +32,23 @@ window.addEventListener('DOMContentLoaded', function () {
         // Check the left stick's horizontal axis (index 0) for left and right movement
         var leftStickX = axes[0];
 
-        // Define a threshold for neutral position
-        var neutralThreshold = 0.1; // Adjust as needed
-
         // Define a movement speed
-        var movementSpeed = 0.1; // Adjust the speed as needed
+        var movementSpeed = 0.01; // Adjust the speed as needed
 
         // Check if the left stick is pushed to the left
-        if (leftStickX < -neutralThreshold) {
+        if (leftStickX < -0.2) {
             // Move the box to the left
             box.position.x -= movementSpeed;
         }
         // Check if the left stick is pushed to the right
-        else if (leftStickX > neutralThreshold) {
+        else if (leftStickX > 0.2) {
             // Move the box to the right
             box.position.x += movementSpeed;
-        } else {
-            // Stop the box when the joystick is in a neutral position
+        }
+        // If the joystick is in a neutral position, stop the object
+        else {
             box.position.x = 0;
         }
-
-        // Request the next animation frame to continuously poll gamepad input
-        requestAnimationFrame(function () {
-            handleGamepadInput(gamepad);
-        });
     }
 
     // Event listener for gamepad connection
@@ -67,6 +60,12 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     engine.runRenderLoop(function () {
+        // Call the handleGamepadInput function here
+        var gamepads = navigator.getGamepads();
+        if (gamepads[0]) {
+            handleGamepadInput(gamepads[0]);
+        }
+
         scene.render();
     });
 });
