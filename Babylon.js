@@ -45,10 +45,6 @@ window.addEventListener('DOMContentLoaded', function () {
             // Move the box to the right
             box.position.x += movementSpeed;
         }
-        // If the joystick is in a neutral position, stop the object
-        else {
-            box.position.x = 0;
-        }
     }
 
     // Event listener for gamepad connection
