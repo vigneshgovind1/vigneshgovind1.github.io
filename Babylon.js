@@ -8,18 +8,8 @@ window.addEventListener('DOMContentLoaded', function () {
     var box = BABYLON.MeshBuilder.CreateBox('box', { size: 2 }, scene);
     box.position = new BABYLON.Vector3(0, 0, 0);
 
-
-    /*
-    //FOR PC WEB ONLY
-    // Event listener for key presses (arrow keys)
-    window.addEventListener('keydown', function (event) {
-        if (event.key === 'ArrowLeft') {
-            box.position.x -= 0.1; // Move the box to the left
-        } else if (event.key === 'ArrowRight') {
-            box.position.x += 0.1; // Move the box to the right
-        }
-    });
-    */
+    // Variable to track the color state
+    var isRed = false;
 
     // Function to handle gamepad input (physical joystick)
     function handleGamepadInput(gamepad) {
@@ -28,6 +18,19 @@ window.addEventListener('DOMContentLoaded', function () {
         var leftStickX = axes[0];
 
         var movementSpeed = 0.05; 
+
+        // Listen for gamepad index trigger click
+        if (gamepad.buttons[0].pressed) {
+            // Toggle the box color between red and white
+            isRed = !isRed;
+            if (isRed) {
+                box.material = new BABYLON.StandardMaterial("redMaterial", scene);
+                box.material.diffuseColor = new BABYLON.Color3(1, 0, 0); // Red color
+            } else {
+                box.material = new BABYLON.StandardMaterial("whiteMaterial", scene);
+                box.material.diffuseColor = new BABYLON.Color3(1, 1, 1); // White color
+            }
+        }
 
         // Check if the left stick is pushed to the left
         if (leftStickX < -0.2) {
@@ -47,7 +50,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     engine.runRenderLoop(function () {
-        //Find and loop gamepads functions here
+        // Find and loop gamepads functions here
         var gamepads = navigator.getGamepads();
         if (gamepads[0]) {
             handleGamepadInput(gamepads[0]);
