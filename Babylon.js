@@ -32,21 +32,23 @@ window.addEventListener('DOMContentLoaded', function () {
         // Check the left stick's horizontal axis (index 0) for left and right movement
         var leftStickX = axes[0];
 
+        // Define a threshold for neutral position
+        var neutralThreshold = 0.1; // Adjust as needed
+
         // Define a movement speed
-        var movementSpeed = 0.01; // Adjust the speed as needed
+        var movementSpeed = 0.1; // Adjust the speed as needed
 
         // Check if the left stick is pushed to the left
-        if (leftStickX < -0.2) {
+        if (leftStickX < -neutralThreshold) {
             // Move the box to the left
             box.position.x -= movementSpeed;
         }
         // Check if the left stick is pushed to the right
-        else if (leftStickX > 0.2) {
+        else if (leftStickX > neutralThreshold) {
             // Move the box to the right
             box.position.x += movementSpeed;
-        }
-        // If the joystick is in a neutral position, stop the object
-        else {
+        } else {
+            // Stop the box when the joystick is in a neutral position
             box.position.x = 0;
         }
 
