@@ -45,6 +45,10 @@ window.addEventListener('DOMContentLoaded', function () {
             // Move the box to the right
             box.position.x += movementSpeed;
         }
+        // If the joystick is in a neutral position, stop the object
+        else {
+            box.position.x = 0;
+        }
 
         // Request the next animation frame to continuously poll gamepad input
         requestAnimationFrame(function () {
